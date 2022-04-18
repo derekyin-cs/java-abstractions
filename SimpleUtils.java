@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 public class SimpleUtils {
 
     /**
@@ -13,7 +14,11 @@ public class SimpleUtils {
      * broken based on <code>from_start</code>.
      */
     public static <T extends Comparable<T>> T least(Collection<T> items, boolean from_start) {
-        return (items.stream().sorted().findFirst().get());
+        return (items.stream()
+                .sorted()
+                .findFirst()
+                .get());
+        //
     }
 
     ;
@@ -28,7 +33,10 @@ public class SimpleUtils {
      * @return the flattened list representation of <code>aMap</code>.
      */
     public static <K, V> List<String> flatten(Map<K, V> aMap) {
-        return null;
+        return aMap.entrySet()
+                .stream()
+                .map(e-> (e.getKey().toString()) + "->" + e.getValue().toString())
+                .collect(Collectors.toList());
     }
 
     ;
@@ -37,6 +45,10 @@ public class SimpleUtils {
     public static void main(String[] args) {
         List<String> lst = Arrays.asList("aa", "pp", "gang", "jee");
         System.out.println(least(lst, true));
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(1, 1);
+        map.put(10, 9);
+        System.out.println(flatten(map));
     }
 
 }
