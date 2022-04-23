@@ -14,9 +14,14 @@ public class SimpleUtils {
      * broken based on <code>from_start</code>.
      */
     public static <T extends Comparable<T>> T least(Collection<T> items, boolean from_start) {
+        //implement null case
         return (items.stream()
                 .sorted()
-                .findFirst()
+                .reduce((f, s) -> {
+                    if (f.compareTo(s) == 0 && from_start) return f;
+                    if (f.compareTo(s) == 0) return s;
+                    return f;
+                })
                 .get());
         //
     }
@@ -35,7 +40,7 @@ public class SimpleUtils {
     public static <K, V> List<String> flatten(Map<K, V> aMap) {
         return aMap.entrySet()
                 .stream()
-                .map(e-> (e.getKey().toString()) + "->" + e.getValue().toString())
+                .map(e-> (e.getKey().toString()) + " -> " + e.getValue().toString())
                 .collect(Collectors.toList());
     }
 
@@ -43,12 +48,13 @@ public class SimpleUtils {
 
 
     public static void main(String[] args) {
-        List<String> lst = Arrays.asList("aa", "pp", "gang", "jee");
+        List<Integer> lst = Arrays.asList(9, 11, 3, 4, 10, 1, 2, 3, 4, -10, -10, 1);
         System.out.println(least(lst, true));
         Map<Integer, Integer> map = new HashMap<>();
         map.put(1, 1);
         map.put(10, 9);
         System.out.println(flatten(map));
     }
+
 
 }

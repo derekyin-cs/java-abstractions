@@ -1,4 +1,4 @@
-package arithmetic;
+// package arithmetic;
 
 /**
  * In algebra, a <b>group</b> is a set equipped with an operation that combines any two elements of the set to produce
